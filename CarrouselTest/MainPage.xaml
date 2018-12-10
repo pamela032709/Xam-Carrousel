@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" x:Name="PicturesPage" xmlns:cv="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:CarrouselTest" x:Class="CarrouselTest.MainPage">
+    <StackLayout>
+        <cv:CarouselView x:Name="MyCarousel" ItemsSource="{Binding Path=BindingContext.Zoos, Source={x:Reference PicturesPage}}" HeightRequest="200">
+            <cv:CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Image Grid.RowSpan="2" Aspect="AspectFill" Source="{Binding ImageUrl}" />
+                        <StackLayout Grid.Row="1" BackgroundColor="#80000000" Padding="12">
+                            <Label TextColor="White" Text="{Binding Name}" FontSize="16" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
+                    </Grid>
+                </DataTemplate>
+            </cv:CarouselView.ItemTemplate>
+        </cv:CarouselView>
+        <Grid ColumnSpacing="0" Padding="5,5,5,5" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="120" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <!-- Add Images to the carrousel"-->
+            <Label Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" Text="Add up to 9 images , every photo from camera or album,  will replace the image in the carrusel and if the user wants to change the foto , click on the + button to add image again and replace the image . in other words each image will have an index and it will be place in the same order in the carrusel ." TextColor="#376699" HorizontalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer AutomationId="TakePictureTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Image AutomationProperties.IsInAccessibleTree="true" AutomationId="foto0" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2" x:Name="Photo0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ImageClickedCommand}" />
+                </Image.GestureRecognizers>
+                <Image.Source>
+                    <FileImageSource File="{Binding ChosenImage}" />
+                </Image.Source>
+            </Image>
+        </Grid>
+    </StackLayout>
+</ContentPage>
